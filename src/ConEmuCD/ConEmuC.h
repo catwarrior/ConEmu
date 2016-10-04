@@ -481,6 +481,10 @@ struct SrvInfo
 	DWORD dwAltServerPID; DWORD dwPrevAltServerPID;
 	MMap<DWORD,AltServerInfo> AltServers;
 
+	/** **/
+	// add atomic counter for freezing
+	// add atomic flag if thread is freezed
+	/** **/
 	HANDLE hFreezeRefreshThread;
 	DWORD  nPrevAltServer; // Informational, only for RM_ALTSERVER
 

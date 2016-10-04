@@ -2283,6 +2283,7 @@ int WINAPI RequestLocalServer(/*[IN/OUT]*/RequestLocalServerParm* Parm)
 		}
 	}
 
+	/** replace with function **/
 	// Если поток RefreshThread был "заморожен" при запуске другого сервера
 	if (gpSrv->hFreezeRefreshThread)
 	{

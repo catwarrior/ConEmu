@@ -4479,7 +4479,18 @@ void ShowSleepIndicator(SleepIndicatorType SleepType, bool bSleeping)
 }
 
 
+/** **/
+void FreezeRefreshThread()
+{
+	// if counter == 0 then wait while refresh thread becomes freezed
+	// assert CurrentThreadId <> RefreshThreadId
+}
 
+void ThawRefreshThread()
+{
+	// decrease counter, if == 0 thaw the thread
+}
+/** **/
 
 DWORD WINAPI RefreshThread(LPVOID lpvParam)
 {
@@ -4525,13 +4536,17 @@ DWORD WINAPI RefreshThread(LPVOID lpvParam)
 		//lbForceSend = FALSE;
 		MCHKHEAP;
 
+		/** **/
 		if (gpSrv->hFreezeRefreshThread)
 		{
 			HANDLE hFreeze[2] = {gpSrv->hFreezeRefreshThread, ghQuitEvent};
+			/** set atomic flag **/
 			nFreezeWait = WaitForMultipleObjects(countof(hFreeze), hFreeze, FALSE, INFINITE);
+			/** reset atomic flag **/
 			if (nFreezeWait == (WAIT_OBJECT_0+1))
 				break; // затребовано завершение потока
 		}
+		/** **/
 
 		if (gpSrv->hWaitForSetConBufThread)
 		{
