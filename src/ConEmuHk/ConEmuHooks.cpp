@@ -770,6 +770,8 @@ bool InitHooksDefTerm()
 			goto wrap;
 	}
 
+	gnDllState |= ds_HooksDefTerm;
+
 	lbRc = true;
 wrap:
 	HLOGEND1();
@@ -785,8 +787,11 @@ wrap:
 
 bool InitHooksCommon()
 {
-	if (!InitHooksLibrary())
-		return false;
+	if (!(gnDllState & ds_HooksDefTerm))
+	{
+		if (!InitHooksLibrary())
+			return false;
+	}
 
 	if (!InitHooksKernel())
 		return false;
@@ -808,6 +813,8 @@ bool InitHooksCommon()
 
 	if (!InitHooksCmdExe())
 		return false;
+
+	gnDllState |= ds_HooksCommon;
 
 	return true;
 }
